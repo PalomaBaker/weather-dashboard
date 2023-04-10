@@ -54,13 +54,17 @@ async function getWeatherData(searchTerm) {
 // Add city to search history
 function addCityToHistory(city) {
   const li = document.createElement("li");
-  li.classList.add("list-group-item", "history-item");
-  li.textContent = city;
+  const button = document.createElement("button");
+  button.classList.add("btn", "btn-secondary", "history-item");
+  button.textContent = city;
+  li.appendChild(button);
   historyList.prepend(li);
-  li.addEventListener("click", () => {
+  button.addEventListener("click", () => {
     searchCity(city);
   });
 }
+
+
 
 // Show today's weather
 function showTodayWeather(weatherData) {
@@ -101,6 +105,7 @@ function showTodayWeather(weatherData) {
             <img src="https://openweathermap.org/img/w/${day.weather[0].icon}.png" alt="${day.weather[0].description}" />
             <p class="card-text">Temperature: ${day.temp.day} &#8451;</p>
             <p class="card-text">Humidity: ${day.humidity}%</p>
+            <p class="card-text">Wind Speed: ${day.wind_speed} m/s</p>
           </div>
         </div>
       `;
