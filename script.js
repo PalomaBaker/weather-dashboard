@@ -83,3 +83,29 @@ function showTodayWeather(weatherData) {
       uvIndex.classList.add("bg-danger", "text-white", "rounded", "p-1");
     }
   }};    
+
+  function showForecast(weatherData) {
+    const forecastData = weatherData.daily.slice(1, 6); // Get the forecast data for the next 5 days
+    forecastSection.innerHTML = `
+      <h2>5-Day Forecast:</h2>
+    `;
+    const forecastList = document.createElement("div");
+    forecastList.classList.add("row");
+    forecastData.forEach((day) => {
+      const forecastItem = document.createElement("div");
+      forecastItem.classList.add("col-md-2", "col-6");
+      forecastItem.innerHTML = `
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">${dayjs.unix(day.dt).format("dddd")}</h5>
+            <img src="https://openweathermap.org/img/w/${day.weather[0].icon}.png" alt="${day.weather[0].description}" />
+            <p class="card-text">Temperature: ${day.temp.day} &#8451;</p>
+            <p class="card-text">Humidity: ${day.humidity}%</p>
+          </div>
+        </div>
+      `;
+      forecastList.appendChild(forecastItem);
+    });
+    forecastSection.appendChild(forecastList);
+  };
+  
